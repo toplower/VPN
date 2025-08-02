@@ -216,3 +216,12 @@ async def errors_handler(event: ErrorEvent, bot: Bot) -> bool:
         logger.error(f"Неожиданная ошибка в error handler: {exception}")
 
     return True
+
+import asyncio
+
+async def main():
+    logger.info("Бот запущен")
+    await dp.start_polling(bot)
+
+if __name__ == "__main__":
+    asyncio.run(main())
