@@ -6,7 +6,11 @@ from datetime import timedelta
 
 from loguru import logger
 
-from config import LOG_ROTATION_TIME
+
+try:
+    from config import LOG_ROTATION_TIME
+except ModuleNotFoundError:
+    LOG_ROTATION_TIME = os.getenv("LOG_ROTATION_TIME", "00:00")
 
 
 log_folder = "logs"
