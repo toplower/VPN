@@ -5,3 +5,4 @@ formatting:
 
 lint:
 	@echo "Running Ruff checks..." && ruff check . --config pyproject.toml --exclude main.py,handlers/payments
+

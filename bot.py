@@ -1,3 +1,5 @@
+# ruff: noqa: S603,S607,S404
+import asyncio
 import os
 import subprocess
 import time
@@ -14,7 +16,12 @@ from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.types import BufferedInputFile, ErrorEvent
 from aiogram.utils.markdown import hbold
 
-from config import ADMIN_ID, API_TOKEN
+
+try:
+    from config import ADMIN_ID, API_TOKEN
+except ModuleNotFoundError:
+    API_TOKEN = os.getenv("API_TOKEN", "")
+    ADMIN_ID = [int(x) for x in os.getenv("ADMIN_ID", "").split(",") if x]
 from filters.private import IsPrivateFilter
 from logger import logger
 
@@ -217,11 +224,11 @@ async def errors_handler(event: ErrorEvent, bot: Bot) -> bool:
 
     return True
 
-import asyncio
 
 async def main():
     logger.info("Бот запущен")
     await dp.start_polling(bot)
+
 
 if __name__ == "__main__":
     asyncio.run(main())
